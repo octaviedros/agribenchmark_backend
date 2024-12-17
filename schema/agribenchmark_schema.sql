@@ -13,6 +13,7 @@ CREATE TABLE "general_farm" (
 	"sows" boolean,
 	"pig_finishing" boolean,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("general_id")
 );
 
@@ -38,6 +39,7 @@ CREATE TABLE "buildings" (
 	"replacement_value" decimal,
 	"enterprise_codes" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("buildings_id")
 );
 COMMENT ON COLUMN buildings.sum_annual_depreciation IS 'C';
@@ -90,6 +92,7 @@ CREATE TABLE "feed_sows" (
 	-- kg/year
 	"piglet_total_feed_yearly" decimal,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("feed_id")
 );
 COMMENT ON COLUMN feed_sows.sows_gestation_feed IS 'kg/animal and year';
@@ -130,6 +133,7 @@ CREATE TABLE "machines" (
 	"replacement_value" decimal,
 	"enterprise_code" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("machines_id")
 );
 COMMENT ON COLUMN machines.sum_annual_depreciation IS 'C';
@@ -156,6 +160,7 @@ CREATE TABLE "labour" (
 	"annual_wage_incl_sidecosts" decimal,
 	"enterprise_code" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("labour_id")
 );
 COMMENT ON COLUMN labour.labor_units IS 'Number(Anzahl)';
@@ -170,6 +175,7 @@ CREATE TABLE "cash_crops" (
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	"year" int,
+	"id" int,
 	PRIMARY KEY("crops_id")
 );
 COMMENT ON COLUMN cash_crops.crop_name IS 'Set aside, Corn, Wheat, Barley';
@@ -192,6 +198,7 @@ CREATE TABLE "pig_finishing" (
 	-- %
 	"share_gi_pigs" decimal(5,4),
 	"year" int,
+	"id" int,
 	PRIMARY KEY("finishing_id")
 );
 COMMENT ON COLUMN pig_finishing.animal_places IS 'No. heads';
@@ -216,6 +223,7 @@ CREATE TABLE "sows" (
 	"no_boars" int,
 	"total_no_sows_gilts" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("sows_id")
 );
 COMMENT ON COLUMN sows.no_sows_mated_gilts IS 'No. heads';
@@ -255,6 +263,7 @@ CREATE TABLE "variable_costs_sows" (
 	"others" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("var_cost_id")
 );
 COMMENT ON COLUMN variable_costs_sows.veterinary_medicine_supplies IS 'C/head';
@@ -285,6 +294,7 @@ CREATE TABLE "fix_costs" (
 	"others" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("fix_cost_id")
 );
 COMMENT ON COLUMN fix_costs.feed_grinding_preparation IS 'C/enterprise';
@@ -331,6 +341,7 @@ CREATE TABLE "sows_performance" (
 	"reared_piglets" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("sows_performance_id")
 );
 COMMENT ON COLUMN sows_performance.piglets_born_alive IS 'piglets/sow/year';
@@ -376,6 +387,7 @@ CREATE TABLE "liabilities_interest_rates" (
 	"perc_debt_total_assets" decimal(5,4),
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("liabilities_id")
 );
 COMMENT ON COLUMN liabilities_interest_rates.long_term_loans IS '%';
@@ -428,6 +440,7 @@ CREATE TABLE "overhead_costs" (
 	"others" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("overhead_id")
 );
 COMMENT ON COLUMN overhead_costs.land_improvements IS 'Drainage etc.;C/year';
@@ -455,6 +468,7 @@ CREATE TABLE "direct_aid_from_farm" (
 	"compensatory_allovance_disadvantage_area" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("direct_aid_id")
 );
 COMMENT ON COLUMN direct_aid_from_farm.compensatory_allovance_disadvantage_area IS 'C/year';
@@ -476,6 +490,7 @@ CREATE TABLE "acerage_prices" (
 	"market_value" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("acerage_id")
 );
 COMMENT ON COLUMN acerage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
@@ -506,6 +521,7 @@ CREATE TABLE "land_use" (
 	"crop_id" int,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("landuse_id")
 );
 COMMENT ON COLUMN land_use.crop_name IS 'Set aside, Corn, Wheat, Barley';
@@ -538,6 +554,7 @@ CREATE TABLE "var_cost_crop" (
 	"crop_id" int,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("var_cost_crop_id")
 );
 COMMENT ON COLUMN var_cost_crop.crop_name IS 'Set aside, Corn, Wheat, Barley';
@@ -565,6 +582,7 @@ CREATE TABLE "feed_prices_dry_matter" (
 	"concentrate" boolean,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("feed_prices_id")
 );
 COMMENT ON COLUMN feed_prices_dry_matter.feed_type IS 'Bought-in forage, Minerals, Concentrates, Milk replacer ,Oils, Finishing Feed I, Finishing Feed II, Finishing , Feed III, Finishing Feed IV, Gestation feed, Lactation feed, Special gilt feed, Special boar feed, Piglet feed I, Piglet feed II';
@@ -585,6 +603,7 @@ CREATE TABLE "sales_weight" (
 	"rearing_piglet" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("sales_weight_id")
 );
 COMMENT ON COLUMN sales_weight.sows IS 'kg CW per head';
@@ -612,6 +631,7 @@ CREATE TABLE "prices_sows" (
 	"no_weaned_pigs_sold" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("prices_sows_id")
 );
 COMMENT ON COLUMN prices_sows.buying_gilts IS 'C/head';
@@ -654,6 +674,7 @@ CREATE TABLE "performance_pig_finishing" (
 	"avg_duration_finishing_period_em_ic" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("performance_fin_id")
 );
 COMMENT ON COLUMN performance_pig_finishing.stalling_in_weight IS 'kg LW per head';
@@ -683,6 +704,7 @@ CREATE TABLE "prices_finishing" (
 	"selling_finishing_pigs_em_ic" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("prices_fin_id")
 );
 COMMENT ON COLUMN prices_finishing.buying_f_castpiglets IS 'C/ kg LW';
@@ -715,6 +737,7 @@ CREATE TABLE "var_cost_finishing" (
 	"maintenance" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("var_cost_fin_id")
 );
 COMMENT ON COLUMN var_cost_finishing.veterinary_medicine_supplies IS 'C/head';
@@ -766,6 +789,7 @@ CREATE TABLE "feeding_finishing" (
 	"total_amount_feed" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("feed_fin_id")
 );
 COMMENT ON COLUMN feeding_finishing.proportion_finishing_feed_1 IS '%';
@@ -790,6 +814,7 @@ CREATE TABLE "fertilizer" (
 	"n_content_per_unit" decimal,
 	"general_id" int,
 	"year" int,
+	"id" int,
 	PRIMARY KEY("fertilizer_id")
 );
 
@@ -822,6 +847,7 @@ CREATE TABLE "feed_ration" (
 	"general_id" int,
 	"year" int,
 	"feeds_id" int,
+	"id" int,
 	PRIMARY KEY("feed_ration_id")
 );
 
