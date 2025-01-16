@@ -26,6 +26,8 @@ class GeneralFarm(SQLModel, table=True):
     )
 
     general_id: Optional[int] = Field(default=None, sa_column=Column('general_id', Integer, primary_key=True))
+    firstname: Optional[str] = Field(default=None, sa_column=Column('firstname', String(25)))
+    lastname: Optional[str] = Field(default=None, sa_column=Column('lastname', String(25)))
     username: Optional[str] = Field(default=None, sa_column=Column('username', String(25)))
     email: Optional[str] = Field(default=None, sa_column=Column('email', String(50)))
     password: Optional[str] = Field(default=None, sa_column=Column('password', String(255)))
@@ -38,7 +40,17 @@ class GeneralFarm(SQLModel, table=True):
     sows: Optional[bool] = Field(default=None, sa_column=Column('sows', Boolean))
     pig_finishing: Optional[bool] = Field(default=None, sa_column=Column('pig_finishing', Boolean))
     year: Optional[int] = Field(default=None, sa_column=Column('year', Integer))
-
+    farm_id: Optional[str] = Field(default=None, sa_column=Column("farm_id", String(255)))
+    scenario_id: Optional[str] = Field(default=None, sa_column=Column("scenario_id", String(255)))
+    scenario_name: Optional[str] = Field(default=None, sa_column=Column("scenario_name", String(255)))
+    farm_name: Optional[str] = Field(default=None, sa_column=Column("farm_name", String(255)))
+    network_pig: Optional[bool] = Field(default=None, sa_column=Column("network_pig", Boolean))
+    network_beef: Optional[bool] = Field(default=None, sa_column=Column("network_beef", Boolean))
+    network_crop: Optional[bool] = Field(default=None, sa_column=Column("network_crop", Boolean))
+    network_horticulture: Optional[bool] = Field(default=None, sa_column=Column("network_horticulture", Boolean))
+    network_fish: Optional[bool] = Field(default=None, sa_column=Column("network_fish", Boolean))
+    network_poultry: Optional[bool] = Field(default=None, sa_column=Column("network_poultry", Boolean))
+    
     acerage_prices: List['AceragePrices'] = Relationship(back_populates='general')
     direct_aid_from_farm: List['DirectAidFromFarm'] = Relationship(back_populates='general')
     feed_prices_dry_matter: List['FeedPricesDryMatter'] = Relationship(back_populates='general')

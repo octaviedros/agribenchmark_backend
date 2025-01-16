@@ -1,9 +1,23 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import src.models as models
 from src.crud_router_generator import create_crud_router
 import sys, inspect
 
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Create a CRUD router for each model
 all_models = [cls_name for cls_name, cls_obj in inspect.getmembers(sys.modules['src.models']) \

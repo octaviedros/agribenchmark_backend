@@ -20,7 +20,7 @@ def create_crud_router(model: Type[SQLModel], session: Session = Depends(get_ses
 
     @router.get("/{item_id}", response_model=model)
     def read_item(item_id: int, session: Session = Depends(get_session)):
-        item = session.exec(select(model).where(model.id == item_id)).first()
+        item = session.exec(select(model).where(model.general_id == item_id)).first()
         if item is None:
             raise HTTPException(status_code=404, detail="Item not found")
         return item
@@ -32,7 +32,7 @@ def create_crud_router(model: Type[SQLModel], session: Session = Depends(get_ses
 
     @router.put("/{item_id}", response_model=model)
     def update_item(item_id: int, item: model, session: Session = Depends(get_session)):
-        db_item = session.exec(select(model).where(model.id == item_id)).first()
+        db_item = session.exec(select(model).where(model.general_id == item_id)).first()
         if db_item is None:
             raise HTTPException(status_code=404, detail="Item not found")
         update_data = item.dict(exclude_unset=True)
@@ -45,7 +45,7 @@ def create_crud_router(model: Type[SQLModel], session: Session = Depends(get_ses
 
     @router.delete("/{item_id}")
     def delete_item(item_id: int, session: Session = Depends(get_session)):
-        item = session.exec(select(model).where(model.id == item_id)).first()
+        item = session.exec(select(model).where(model.general_id == item_id)).first()
         if item is None:
             raise HTTPException(status_code=404, detail="Item not found")
         session.delete(item)

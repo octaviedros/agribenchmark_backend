@@ -1,6 +1,8 @@
 
 CREATE TABLE "general_farm" (
 	"general_id" serial NOT NULL UNIQUE,
+	"firstname" varchar(25),
+	"lastname" varchar(25),
 	"username" varchar(25),
 	"email" varchar(50),
 	"password" varchar(255),
@@ -13,6 +15,16 @@ CREATE TABLE "general_farm" (
 	"sows" boolean,
 	"pig_finishing" boolean,
 	"year" int,
+	"farm_id" varchar(255),
+	"scenario_id" varchar(255),
+	"scenario_name" varchar(255),
+	"farm_name" varchar(255),
+	"network_pig" boolean,
+	"network_beef" boolean,
+	"network_crop" boolean,
+	"network_horticulture" boolean,
+	"network_fish" boolean,
+	"network_poultry" boolean,
 	PRIMARY KEY("general_id")
 );
 
