@@ -178,7 +178,7 @@ class Buildings(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     buildings_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
-    sow_id: Optional[int]
+    sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[int]
     sum_annual_depreciation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sum_book_values: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -199,7 +199,7 @@ class FeedSows(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     feed_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
-    sow_id: Optional[int]
+    sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[int]
     sows_gestation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sows_lactation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -217,6 +217,7 @@ class FeedSows(SQLModel, table=True):
     boars_total_feed_yearly: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     piglet_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     piglet_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    piglet_feed_quantity_yearly: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     piglet_total_feed_yearly: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     year: Optional[int]
 
@@ -228,7 +229,7 @@ class Machines(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     machines_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
-    sow_id: Optional[int]
+    sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[int]
     sum_annual_depreciation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sum_book_values: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -249,7 +250,7 @@ class Labour(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     labour_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
-    sow_id: Optional[int]
+    sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[int]
     type: Optional[TypeT] = Field(sa_type=sa.Enum(TypeT))
     labor_units: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -266,7 +267,7 @@ class CashCrops(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     crops_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
-    feed_id: Optional[int]
+    feed_id: Optional[UUID4] = Field(sa_type=UUID)
     crop_name: Optional[str]
     year: Optional[int]
 
@@ -456,7 +457,7 @@ class LandUse(SQLModel, table=True):
     cap_dir_paym: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     other_dir_paym: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     enterprise_code: Optional[int]
-    crop_id: Optional[int]
+    crop_id: Optional[UUID4] = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
 
@@ -475,7 +476,7 @@ class VarCostCrop(SQLModel, table=True):
     contract_labor: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     energy: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     other: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    crop_id: Optional[int]
+    crop_id: Optional[UUID4] = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
 
@@ -503,11 +504,11 @@ class SalesWeight(SQLModel, table=True):
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
     sales_weight_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
-    sows: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    boars: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    weaning_piglet: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    rearing_piglet: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    general_id: UUID4 = Field(sa_type=UUID)
+    sales_weight_sows: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    sales_weight_boars: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    sales_weight_weaning_piglet: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    sales_weight_rearing_piglet: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    general_id: Optional[UUID4] = Field(sa_type=UUID)
     year: Optional[int]
 
 
@@ -543,7 +544,7 @@ class PerformancePigFinishing(SQLModel, table=True):
     mortality: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
     avg_selling_weight_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     carcass_yield_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    lean_meat_fom_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    lean_meat_from_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     index_points_autofom_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     avg_selling_weight_em_ic: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     carcass_yield_em_ic: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
@@ -657,4 +658,4 @@ class FeedRation(SQLModel, table=True):
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
-    feeds_id: Optional[int]
+    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
