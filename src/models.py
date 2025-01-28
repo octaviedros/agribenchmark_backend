@@ -233,8 +233,8 @@ class Machines(SQLModel, table=True):
     finishing_id: Optional[int]
     sum_annual_depreciation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sum_book_values: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
-    tractors: Optional[str]
-    purchase_year: Optional[datetime.date]
+    name: Optional[str]
+    purchase_year: Optional[int]
     purchase_price: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     utilization_period: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     salvage_value: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())

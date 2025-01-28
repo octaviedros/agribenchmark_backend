@@ -137,8 +137,8 @@ CREATE TABLE "machines" (
 	"sum_annual_depreciation" decimal,
 	-- C
 	"sum_book_values" decimal,
-	"tractors" varchar(255),
-	"purchase_year" date,
+	"name" varchar(255),
+	"purchase_year" int,
 	-- C/piece
 	"purchase_price" decimal,
 	-- economically

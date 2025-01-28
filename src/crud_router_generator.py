@@ -25,6 +25,13 @@ def create_crud_router(model: Type[SQLModel], session: Session = Depends(get_ses
             raise HTTPException(status_code=404, detail="Item not found")
         return item
     
+    @router.head("/{item_id}")
+    def head_item(item_id: str, session: Session = Depends(get_session)):
+        item = session.exec(select(model).where(model.id == item_id)).first()
+        if item is None:
+            raise HTTPException(status_code=404, detail="Item not found")
+        return {"ok": True}
+    
     @router.get("/by_general_id/{general_id}", response_model=List[model])
     def read_items_by_general_id(general_id: str, session: Session = Depends(get_session)):
         items = session.exec(select(model).where(model.general_id == general_id)).all()
