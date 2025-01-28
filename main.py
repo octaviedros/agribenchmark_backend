@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import src.models as models
 from src.crud_router_generator import create_crud_router
 import sys, inspect
+import enum
 
 app = FastAPI()
 
@@ -21,7 +22,7 @@ app.add_middleware(
 
 # Create a CRUD router for each model
 all_models = [cls_name for cls_name, cls_obj in inspect.getmembers(sys.modules['src.models']) \
-                    if inspect.isclass(cls_obj) and cls_obj.__module__ == 'src.models']
+                    if inspect.isclass(cls_obj) and cls_obj.__module__ == 'src.models' and not issubclass(cls_obj, enum.Enum)]
 
 for model_name in all_models:
     model = getattr(models, model_name)
