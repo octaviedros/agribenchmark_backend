@@ -103,6 +103,8 @@ CREATE TABLE "feed_sows" (
 	-- kg/animal
 	"piglet_feed_2" decimal,
 	-- kg/year
+	"piglet_feed_quantity_yearly" decimal,
+	-- kg/year
 	"piglet_total_feed_yearly" decimal,
 	"year" int,
 	PRIMARY KEY("feed_id")
@@ -121,6 +123,7 @@ COMMENT ON COLUMN feed_sows.boars_feed_quantity_yearly IS 'kg/animal and year';
 COMMENT ON COLUMN feed_sows.boars_total_feed_yearly IS 'kg/year';
 COMMENT ON COLUMN feed_sows.piglet_feed_1 IS 'kg/animal';
 COMMENT ON COLUMN feed_sows.piglet_feed_2 IS 'kg/animal';
+COMMENT ON COLUMN feed_sows.piglet_feed_quantity_yearly IS 'kg/year';
 COMMENT ON COLUMN feed_sows.piglet_total_feed_yearly IS 'kg/year';
 
 
@@ -607,21 +610,21 @@ CREATE TABLE "sales_weight" (
 	"id" uuid NOT NULL UNIQUE,
 	"sales_weight_id" uuid NOT NULL UNIQUE,
 	-- kg CW per head
-	"sows" decimal,
+	"sales_weight_sows" decimal,
 	-- kg CW per head
-	"boars" decimal,
+	"sales_weight_boars" decimal,
 	-- kg LW per head
-	"weaning_piglet" decimal,
+	"sales_weight_weaning_piglet" decimal,
 	-- kg LW per head
-	"rearing_piglet" decimal,
-	"general_id" uuid NOT NULL,
+	"sales_weight_rearing_piglet" decimal,
+	"general_id" uuid,
 	"year" int,
 	PRIMARY KEY("sales_weight_id")
 );
-COMMENT ON COLUMN sales_weight.sows IS 'kg CW per head';
-COMMENT ON COLUMN sales_weight.boars IS 'kg CW per head';
-COMMENT ON COLUMN sales_weight.weaning_piglet IS 'kg LW per head';
-COMMENT ON COLUMN sales_weight.rearing_piglet IS 'kg LW per head';
+COMMENT ON COLUMN sales_weight.sales_weight_sows IS 'kg CW per head';
+COMMENT ON COLUMN sales_weight.sales_weight_boars IS 'kg CW per head';
+COMMENT ON COLUMN sales_weight.sales_weight_weaning_piglet IS 'kg LW per head';
+COMMENT ON COLUMN sales_weight.sales_weight_rearing_piglet IS 'kg LW per head';
 
 
 CREATE TABLE "prices_sows" (
@@ -674,7 +677,7 @@ CREATE TABLE "performance_pig_finishing" (
 	"avg_selling_weight_gi_ba" decimal,
 	"carcass_yield_gi_ba" decimal,
 	-- %
-	"lean_meat_fom_gi_ba" decimal,
+	"lean_meat_from_gi_ba" decimal,
 	-- 0,0x
 	"index_points_autofom_gi_ba" decimal,
 	-- kg LW per head
@@ -696,7 +699,7 @@ COMMENT ON COLUMN performance_pig_finishing.cleaning_days_cycle IS 'days';
 COMMENT ON COLUMN performance_pig_finishing.days_without_animals_instable IS 'days';
 COMMENT ON COLUMN performance_pig_finishing.mortality IS '%';
 COMMENT ON COLUMN performance_pig_finishing.avg_selling_weight_gi_ba IS 'kg LW per head';
-COMMENT ON COLUMN performance_pig_finishing.lean_meat_fom_gi_ba IS '%';
+COMMENT ON COLUMN performance_pig_finishing.lean_meat_from_gi_ba IS '%';
 COMMENT ON COLUMN performance_pig_finishing.index_points_autofom_gi_ba IS '0,0x';
 COMMENT ON COLUMN performance_pig_finishing.avg_selling_weight_em_ic IS 'kg LW per head';
 COMMENT ON COLUMN performance_pig_finishing.carcass_yield_em_ic IS '%';
