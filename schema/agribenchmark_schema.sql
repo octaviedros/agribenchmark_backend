@@ -41,7 +41,7 @@ CREATE TABLE "buildings" (
 	-- C
 	"sum_book_values" decimal,
 	"building_name" varchar(255),
-	"purchase_year" date,
+	"purchase_year" int,
 	-- C/piece
 	"purchase_price" decimal,
 	-- for tax
