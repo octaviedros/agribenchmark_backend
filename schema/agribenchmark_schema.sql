@@ -168,6 +168,7 @@ CREATE TABLE "labour" (
 	"sow_id" uuid,
 	"finishing_id" int,
 	"type" type_t,
+	"name" varchar(50),
 	-- Number(Anzahl)
 	"labor_units" decimal,
 	-- per person per year

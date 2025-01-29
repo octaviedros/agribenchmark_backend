@@ -253,6 +253,7 @@ class Labour(SQLModel, table=True):
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[int]
     type: Optional[TypeT] = Field(sa_type=sa.Enum(TypeT))
+    name: Optional[str]
     labor_units: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     working_hours: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     annual_wage_incl_sidecosts: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
