@@ -5,6 +5,8 @@ from src.crud_router_generator import create_crud_router
 import sys, inspect
 import enum
 
+from src.results.export import export_router
+
 app = FastAPI()
 
 origins = [
@@ -28,6 +30,8 @@ for model_name in all_models:
     model = getattr(models, model_name)
     router = create_crud_router(model)
     app.include_router(router, prefix=f"/{model.__name__.lower()}", tags=[model.__name__])
+
+app.include_router(export_router)
 
 # Run the FastAPI app
 if __name__ == "__main__":

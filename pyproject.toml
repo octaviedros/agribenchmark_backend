@@ -5,11 +5,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "connectorx>=0.4.1",
     "fastapi[standard]>=0.115.6",
     "markitdown>=0.0.1a3",
     "omymodels>=0.17.0",
     "polars>=1.21.0",
     "psycopg2-binary>=2.9.10",
+    "pyarrow>=19.0.0",
     "simple-ddl-parser>=1.7.1",
     "sqlalchemy>=2.0.36",
     "sqlmodel>=0.0.22",
