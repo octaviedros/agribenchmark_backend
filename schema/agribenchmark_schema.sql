@@ -199,7 +199,7 @@ COMMENT ON COLUMN cash_crops.crop_name IS 'Set aside, Corn, Wheat, Barley';
 
 CREATE TYPE "production_system_t" AS ENUM ('normal pig finishing', 'additional boar finishing');
 
-CREATE TYPE "production_cyle_t" AS ENUM ('all-in all-out by barn', 'continuous system');
+CREATE TYPE "production_cyle_t" AS ENUM ('all-in all-out by barn', 'all-in all-out by sections', 'continuous system');
 
 CREATE TABLE "pig_finishing" (
 	"id" uuid NOT NULL UNIQUE,
@@ -490,9 +490,9 @@ CREATE TABLE "direct_aid_from_farm" (
 COMMENT ON COLUMN direct_aid_from_farm.compensatory_allovance_disadvantage_area IS 'C/year';
 
 
-CREATE TABLE "acerage_prices" (
+CREATE TABLE "acreage_prices" (
 	"id" uuid NOT NULL UNIQUE,
-	"acerage_id" uuid NOT NULL UNIQUE,
+	"acreage_id" uuid NOT NULL UNIQUE,
 	-- Cropland	Grassland	Other incl. wood
 	"land_type" varchar(50),
 	-- ha
@@ -507,14 +507,14 @@ CREATE TABLE "acerage_prices" (
 	"market_value" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("acerage_id")
+	PRIMARY KEY("acreage_id")
 );
-COMMENT ON COLUMN acerage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
-COMMENT ON COLUMN acerage_prices.own_land IS 'ha';
-COMMENT ON COLUMN acerage_prices.rented_land IS 'ha';
-COMMENT ON COLUMN acerage_prices.rent_existing_contracts IS 'C/ha';
-COMMENT ON COLUMN acerage_prices.rent_new_contracts IS 'C/ha';
-COMMENT ON COLUMN acerage_prices.market_value IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
+COMMENT ON COLUMN acreage_prices.own_land IS 'ha';
+COMMENT ON COLUMN acreage_prices.rented_land IS 'ha';
+COMMENT ON COLUMN acreage_prices.rent_existing_contracts IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.rent_new_contracts IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.market_value IS 'C/ha';
 
 
 CREATE TABLE "land_use" (
@@ -877,6 +877,8 @@ CREATE TABLE "feed_ration_sows" (
 	"piglet_feed_1" decimal,
 	"piglet_feed_2" decimal,
 	"total_amount_feed_used" decimal,
+	"crop_name" varchar(50),
+	"produced" varchar(50),
 	"year" int,
 	"general_id" uuid,
 	"feeds_id" uuid,
@@ -890,6 +892,8 @@ CREATE TABLE "feed_ration_finishing" (
 	"finishing_feed_2" decimal,
 	"finishing_feed_3" decimal,
 	"total_amount_feed_used" decimal,
+	"crop_name" varchar(50),
+	"produced" varchar(50),
 	"year" int,
 	"general_id" uuid,
 	"feeds_id" uuid,
@@ -962,7 +966,7 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "direct_aid_from_farm"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "acerage_prices"
+ALTER TABLE "acreage_prices"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "land_use"

@@ -48,6 +48,7 @@ ProductionCyleT = Enum(
     value='ProductionCyleT',
     names=[
         ('all-in all-out by barn', 'all-in all-out by barn'),
+        ('all-in all-out by sections', 'all-in all-out by sections'),
         ('continuous system', 'continuous system')
     ]
 )
@@ -428,12 +429,12 @@ class DirectAidFromFarm(SQLModel, table=True):
     year: Optional[int]
 
 
-class AceragePrices(SQLModel, table=True):
+class AcreagePrices(SQLModel, table=True):
 
-    __tablename__ = 'acerage_prices'
+    __tablename__ = 'acreage_prices'
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
-    acerage_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    acreage_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     land_type: Optional[str]
     own_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     rented_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -675,6 +676,8 @@ class FeedRationSows(SQLModel, table=True):
     piglet_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     piglet_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    crop_name: Optional[str]
+    produced: Optional[str]
     year: Optional[int]
     general_id: Optional[UUID4] = Field(sa_type=UUID)
     feeds_id: Optional[UUID4] = Field(sa_type=UUID)
@@ -690,6 +693,8 @@ class FeedRationFinishing(SQLModel, table=True):
     finishing_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     finishing_feed_3: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    crop_name: Optional[str]
+    produced: Optional[str]
     year: Optional[int]
     general_id: Optional[UUID4] = Field(sa_type=UUID)
     feeds_id: Optional[UUID4] = Field(sa_type=UUID)
