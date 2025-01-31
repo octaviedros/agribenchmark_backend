@@ -428,12 +428,12 @@ class DirectAidFromFarm(SQLModel, table=True):
     year: Optional[int]
 
 
-class AceragePrices(SQLModel, table=True):
+class AcreagePrices(SQLModel, table=True):
 
-    __tablename__ = 'acerage_prices'
+    __tablename__ = 'acreage_prices'
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
-    acerage_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    acreage_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     land_type: Optional[str]
     own_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     rented_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -451,7 +451,7 @@ class LandUse(SQLModel, table=True):
     id: UUID4 = Field(unique=True, sa_type=UUID)
     landuse_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     crop_name: Optional[str]
-    acerage: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    acreage: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     net_yield: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     dry_matter: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     price: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())

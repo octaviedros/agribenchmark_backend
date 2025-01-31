@@ -490,9 +490,9 @@ CREATE TABLE "direct_aid_from_farm" (
 COMMENT ON COLUMN direct_aid_from_farm.compensatory_allovance_disadvantage_area IS 'C/year';
 
 
-CREATE TABLE "acerage_prices" (
+CREATE TABLE "acreage_prices" (
 	"id" uuid NOT NULL UNIQUE,
-	"acerage_id" uuid NOT NULL UNIQUE,
+	"acreage_id" uuid NOT NULL UNIQUE,
 	-- Cropland	Grassland	Other incl. wood
 	"land_type" varchar(50),
 	-- ha
@@ -507,14 +507,14 @@ CREATE TABLE "acerage_prices" (
 	"market_value" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("acerage_id")
+	PRIMARY KEY("acreage_id")
 );
-COMMENT ON COLUMN acerage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
-COMMENT ON COLUMN acerage_prices.own_land IS 'ha';
-COMMENT ON COLUMN acerage_prices.rented_land IS 'ha';
-COMMENT ON COLUMN acerage_prices.rent_existing_contracts IS 'C/ha';
-COMMENT ON COLUMN acerage_prices.rent_new_contracts IS 'C/ha';
-COMMENT ON COLUMN acerage_prices.market_value IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
+COMMENT ON COLUMN acreage_prices.own_land IS 'ha';
+COMMENT ON COLUMN acreage_prices.rented_land IS 'ha';
+COMMENT ON COLUMN acreage_prices.rent_existing_contracts IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.rent_new_contracts IS 'C/ha';
+COMMENT ON COLUMN acreage_prices.market_value IS 'C/ha';
 
 
 CREATE TABLE "land_use" (
@@ -523,7 +523,7 @@ CREATE TABLE "land_use" (
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	-- ha
-	"acerage" decimal,
+	"acreage" decimal,
 	-- t/ha
 	"net_yield" decimal,
 	-- 0,0x
@@ -541,7 +541,7 @@ CREATE TABLE "land_use" (
 	PRIMARY KEY("landuse_id")
 );
 COMMENT ON COLUMN land_use.crop_name IS 'Set aside, Corn, Wheat, Barley';
-COMMENT ON COLUMN land_use.acerage IS 'ha';
+COMMENT ON COLUMN land_use.acreage IS 'ha';
 COMMENT ON COLUMN land_use.net_yield IS 't/ha';
 COMMENT ON COLUMN land_use.dry_matter IS '0,0x';
 COMMENT ON COLUMN land_use.price IS 'C/t';
@@ -934,7 +934,7 @@ ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "direct_aid_from_farm"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
-ALTER TABLE "acerage_prices"
+ALTER TABLE "acreage_prices"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "land_use"
