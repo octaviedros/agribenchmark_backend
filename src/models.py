@@ -48,6 +48,7 @@ ProductionCyleT = Enum(
     value='ProductionCyleT',
     names=[
         ('all-in all-out by barn', 'all-in all-out by barn'),
+        ('all-in all-out by sections', 'all-in all-out by sections'),
         ('continuous system', 'continuous system')
     ]
 )
@@ -659,4 +660,41 @@ class FeedRation(SQLModel, table=True):
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
+    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+
+
+class FeedRationSows(SQLModel, table=True):
+
+    __tablename__ = 'feed_ration_sows'
+
+    id: UUID4 = Field(unique=True, sa_type=UUID)
+    feed_ration_sows_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    gestation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    lactation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    special_gilt_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    special_boar_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    piglet_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    piglet_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    crop_name: Optional[str]
+    produced: Optional[str]
+    year: Optional[int]
+    general_id: Optional[UUID4] = Field(sa_type=UUID)
+    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+
+
+class FeedRationFinishing(SQLModel, table=True):
+
+    __tablename__ = 'feed_ration_finishing'
+
+    id: UUID4 = Field(unique=True, sa_type=UUID)
+    feed_ration_finishing_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    finishing_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    finishing_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    finishing_feed_3: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    crop_name: Optional[str]
+    produced: Optional[str]
+    year: Optional[int]
+    general_id: Optional[UUID4] = Field(sa_type=UUID)
     feeds_id: Optional[UUID4] = Field(sa_type=UUID)
