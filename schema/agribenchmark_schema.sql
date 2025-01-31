@@ -867,6 +867,34 @@ CREATE TABLE "feed_ration" (
 	PRIMARY KEY("feed_ration_id")
 );
 
+CREATE TABLE "feed_ration_sows" (
+	"id" uuid NOT NULL UNIQUE,
+	"feed_ration_sows_id" uuid NOT NULL UNIQUE,
+	"gestation_feed" decimal,
+	"lactation_feed" decimal,
+	"special_gilt_feed" decimal,
+	"special_boar_feed" decimal,
+	"piglet_feed_1" decimal,
+	"piglet_feed_2" decimal,
+	"total_amount_feed_used" decimal,
+	"year" int,
+	"general_id" uuid,
+	"feeds_id" uuid,
+	PRIMARY KEY("feed_ration_sows_id")
+);
+
+CREATE TABLE "feed_ration_finishing" (
+	"id" uuid NOT NULL UNIQUE,
+	"feed_ration_finishing_id" uuid NOT NULL UNIQUE,
+	"finishing_feed_1" decimal,
+	"finishing_feed_2" decimal,
+	"finishing_feed_3" decimal,
+	"total_amount_feed_used" decimal,
+	"year" int,
+	"general_id" uuid,
+	"feeds_id" uuid,
+	PRIMARY KEY("feed_ration_finishing_id")
+);
 
 ALTER TABLE "feed_sows"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
@@ -980,5 +1008,17 @@ ALTER TABLE "feed_ration"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "feed_ration"
+ADD FOREIGN KEY("feeds_id") REFERENCES "feeds"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "feed_ration_sows"
+ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "feed_ration_sows"
+ADD FOREIGN KEY("feeds_id") REFERENCES "feeds"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "feed_ration_finishing"
+ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "feed_ration_finishing"
 ADD FOREIGN KEY("feeds_id") REFERENCES "feeds"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
