@@ -44,8 +44,8 @@ ProductionSystemT = Enum(
     ]
 )
 
-ProductionCyleT = Enum(
-    value='ProductionCyleT',
+ProductionCycleT = Enum(
+    value='ProductionCycleT',
     names=[
         ('all-in all-out by barn', 'all-in all-out by barn'),
         ('all-in all-out by sections', 'all-in all-out by sections'),
@@ -180,7 +180,7 @@ class Buildings(SQLModel, table=True):
     buildings_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
-    finishing_id: Optional[int]
+    finishing_id: Optional[UUID4] = Field(sa_type=UUID)
     sum_annual_depreciation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sum_book_values: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     building_name: Optional[str]
@@ -201,7 +201,7 @@ class FeedSows(SQLModel, table=True):
     feed_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
-    finishing_id: Optional[int]
+    finishing_id: Optional[UUID4] = Field(sa_type=UUID)
     sows_gestation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sows_lactation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sows_total_feed_daily: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -231,7 +231,7 @@ class Machines(SQLModel, table=True):
     machines_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
-    finishing_id: Optional[int]
+    finishing_id: Optional[UUID4] = Field(sa_type=UUID)
     sum_annual_depreciation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sum_book_values: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     name: Optional[str]
@@ -252,7 +252,7 @@ class Labour(SQLModel, table=True):
     labour_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
-    finishing_id: Optional[int]
+    finishing_id: Optional[UUID4] = Field(sa_type=UUID)
     type: Optional[TypeT] = Field(sa_type=sa.Enum(TypeT))
     name: Optional[str]
     labor_units: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -279,10 +279,10 @@ class PigFinishing(SQLModel, table=True):
     __tablename__ = 'pig_finishing'
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
-    finishing_id: Optional[int] = Field(default=None, primary_key=True, unique=True)
+    finishing_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     production_system: Optional[ProductionSystemT] = Field(sa_type=sa.Enum(ProductionSystemT))
-    production_cyle: Optional[ProductionCyleT] = Field(sa_type=sa.Enum(ProductionCyleT))
+    production_cycle: Optional[ProductionCycleT] = Field(sa_type=sa.Enum(ProductionCycleT))
     animal_places: Optional[int]
     no_sold_pigs_gi_ba: Optional[int]
     no_sold_em_ic: Optional[int]

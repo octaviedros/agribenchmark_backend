@@ -35,7 +35,7 @@ CREATE TABLE "buildings" (
 	"buildings_id" uuid NOT NULL UNIQUE,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
-	"finishing_id" int,
+	"finishing_id" uuid,
 	-- C
 	"sum_annual_depreciation" decimal,
 	-- C
@@ -71,7 +71,7 @@ CREATE TABLE "feed_sows" (
 	"feed_id" uuid NOT NULL UNIQUE,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
-	"finishing_id" int,
+	"finishing_id" uuid,
 	-- kg/animal and year
 	"sows_gestation_feed" decimal,
 	-- kg/animal and year
@@ -132,7 +132,7 @@ CREATE TABLE "machines" (
 	"machines_id" uuid NOT NULL UNIQUE,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
-	"finishing_id" int,
+	"finishing_id" uuid,
 	-- C
 	"sum_annual_depreciation" decimal,
 	-- C
@@ -166,7 +166,7 @@ CREATE TABLE "labour" (
 	"labour_id" uuid NOT NULL UNIQUE,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
-	"finishing_id" int,
+	"finishing_id" uuid,
 	"type" type_t,
 	"name" varchar(50),
 	-- Number(Anzahl)
@@ -199,14 +199,14 @@ COMMENT ON COLUMN cash_crops.crop_name IS 'Set aside, Corn, Wheat, Barley';
 
 CREATE TYPE "production_system_t" AS ENUM ('normal pig finishing', 'additional boar finishing');
 
-CREATE TYPE "production_cyle_t" AS ENUM ('all-in all-out by barn', 'all-in all-out by sections', 'continuous system');
+CREATE TYPE "production_cycle_t" AS ENUM ('all-in all-out by barn', 'all-in all-out by sections', 'continuous system');
 
 CREATE TABLE "pig_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"finishing_id" int NOT NULL UNIQUE,
+	"finishing_id" uuid NOT NULL UNIQUE,
 	"general_id" uuid NOT NULL,
 	"production_system" production_system_t,
-	"production_cyle" production_cyle_t,
+	"production_cycle" production_cycle_t,
 	-- No. heads
 	"animal_places" int,
 	-- No heads
