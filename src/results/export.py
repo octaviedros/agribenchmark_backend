@@ -1,11 +1,19 @@
-from fastapi import Response, APIRouter
+import uuid
+from pathlib import Path
+
 import polars as pl
-from src.database import tables_general_id, DATABASE_URL
+from fastapi import APIRouter, BackgroundTasks, Response
+from fastapi.responses import FileResponse
+
+from src.database import DATABASE_URL, tables_general_id
 
 export_router = APIRouter(prefix="/export", tags=["export"])
 
+def remove_file(temp_file):
+    Path(temp_file).unlink()
+
 @export_router.get("/farm/{general_id}")
-def export_to_csv(general_id: str, format: str = "csv"):
+def export_to_csv(general_id: str, background_tasks: BackgroundTasks, format: str = "csv", ):
   # Collect data from all tables
   data = {
     table: pl.read_database_uri(
@@ -29,8 +37,13 @@ def export_to_csv(general_id: str, format: str = "csv"):
     return Response(data.write_json(), headers=headers, media_type="application/json")
   elif format == "xlsx":
     # write to xlsx
+    unique_name = str(uuid.uuid4())
+    temp_file= unique_name+".xlsx"
     headers = {'Content-Disposition': 'attachment; filename="data.xlsx"'}
-    return Response(data.write_excel(), headers=headers, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    data.write_excel(temp_file)
+    file_response = FileResponse(temp_file,headers=headers, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    background_tasks.add_task(remove_file,temp_file)
+    return file_response
   else:
     # write to csv
     headers = {'Content-Disposition': 'attachment; filename="data.csv"'}
