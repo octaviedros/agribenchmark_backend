@@ -119,8 +119,8 @@ ProductionT = Enum(
 FeedSourcesT = Enum(
     value='FeedSourcesT',
     names=[
-        ('Bought feed', 'Bought feed'),
-        ('Self produced', 'Self produced')
+        ('boughtfeed', 'boughtfeed'),
+        ('selfproduced', 'selfproduced')
     ]
 )
 
@@ -136,6 +136,22 @@ FeedTypeT = Enum(
         ('Piglet feed 2', 'Piglet feed 2'),
         ('Special boar feed', 'Special boar feed'),
         ('Special gilt feed', 'Special gilt feed')
+    ]
+)
+
+SowsProducedT = Enum(
+    value='SowsProducedT',
+    names=[
+        ('boughtfeed', 'boughtfeed'),
+        ('selfproduced', 'selfproduced')
+    ]
+)
+
+FinishingProducedT = Enum(
+    value='FinishingProducedT',
+    names=[
+        ('boughtfeed', 'boughtfeed'),
+        ('selfproduced', 'selfproduced')
     ]
 )
 
@@ -645,6 +661,9 @@ class Feeds(SQLModel, table=True):
     dry_matter: Optional[float]
     xp: Optional[float]
     energy: Optional[float]
+    general_id: UUID4 = Field(sa_type=UUID)
+    feed_ration_sows_id: Optional[UUID4] = Field(sa_type=UUID)
+    feed_ration_finishing_id: Optional[UUID4] = Field(sa_type=UUID)
 
 
 class FeedRation(SQLModel, table=True):
@@ -677,10 +696,10 @@ class FeedRationSows(SQLModel, table=True):
     piglet_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     crop_name: Optional[str]
-    produced: Optional[str]
     year: Optional[int]
     general_id: Optional[UUID4] = Field(sa_type=UUID)
     feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+    sows_produced: Optional[SowsProducedT] = Field(sa_type=sa.Enum(SowsProducedT))
 
 
 class FeedRationFinishing(SQLModel, table=True):
@@ -694,7 +713,7 @@ class FeedRationFinishing(SQLModel, table=True):
     finishing_feed_3: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     crop_name: Optional[str]
-    produced: Optional[str]
+    finishing_produced: Optional[FinishingProducedT] = Field(sa_type=sa.Enum(FinishingProducedT))
     year: Optional[int]
     general_id: Optional[UUID4] = Field(sa_type=UUID)
     feeds_id: Optional[UUID4] = Field(sa_type=UUID)

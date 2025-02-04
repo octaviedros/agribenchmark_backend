@@ -843,13 +843,16 @@ CREATE TABLE "feeds" (
 	"dry_matter" float,
 	"xp" float,
 	"energy" float,
+	"general_id" uuid NOT NULL,
+	"feed_ration_sows_id" uuid,
+	"feed_ration_finishing_id" uuid,
 	PRIMARY KEY("id")
 );
 
 
 CREATE TYPE "production_t" AS ENUM ('sows', 'finishing');
 
-CREATE TYPE "feed_sources_t" AS ENUM ('Self produced', 'Bought feed');
+CREATE TYPE "feed_sources_t" AS ENUM ('selfproduced', 'boughtfeed');
 
 CREATE TYPE "feed_type_t" AS ENUM ('Gestation feed', 'Lactation feed', 'Special gilt feed', 'Special boar feed', 'Piglet feed 1', 'Piglet feed 2', 'Finishing feed 1', 'Finishing feed 2', 'Finishing feed 3');
 
@@ -867,6 +870,8 @@ CREATE TABLE "feed_ration" (
 	PRIMARY KEY("feed_ration_id")
 );
 
+CREATE TYPE "sows_produced_t" AS ENUM ('selfproduced', 'boughtfeed');
+
 CREATE TABLE "feed_ration_sows" (
 	"id" uuid NOT NULL UNIQUE,
 	"feed_ration_sows_id" uuid NOT NULL UNIQUE,
@@ -878,12 +883,15 @@ CREATE TABLE "feed_ration_sows" (
 	"piglet_feed_2" decimal,
 	"total_amount_feed_used" decimal,
 	"crop_name" varchar(50),
-	"produced" varchar(50),
 	"year" int,
 	"general_id" uuid,
 	"feeds_id" uuid,
+	"sows_produced" sows_produced_t,
 	PRIMARY KEY("feed_ration_sows_id")
 );
+
+
+CREATE TYPE "finishing_produced_t" AS ENUM ('selfproduced', 'boughtfeed');
 
 CREATE TABLE "feed_ration_finishing" (
 	"id" uuid NOT NULL UNIQUE,
@@ -893,7 +901,7 @@ CREATE TABLE "feed_ration_finishing" (
 	"finishing_feed_3" decimal,
 	"total_amount_feed_used" decimal,
 	"crop_name" varchar(50),
-	"produced" varchar(50),
+	"finishing_produced" finishing_produced_t,
 	"year" int,
 	"general_id" uuid,
 	"feeds_id" uuid,
