@@ -101,21 +101,6 @@ ProductionTypeT = Enum(
     ]
 )
 
-CerealTypeT = Enum(
-    value='CerealTypeT',
-    names=[
-        ('barley', 'barley'),
-        ('bought-in forage', 'bought-in forage'),
-        ('concentrates', 'concentrates'),
-        ('corn', 'corn'),
-        ('milk replacer', 'milk replacer'),
-        ('minerals', 'minerals'),
-        ('oils', 'oils'),
-        ('set-aside', 'set-aside'),
-        ('wheat', 'wheat')
-    ]
-)
-
 ProductionT = Enum(
     value='ProductionT',
     names=[
@@ -665,14 +650,17 @@ class Feeds(SQLModel, table=True):
     __tablename__ = 'feeds'
 
     id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
-    cereal_type: Optional[CerealTypeT] = Field(sa_type=sa.Enum(CerealTypeT))
+    general_id: UUID4 = Field(sa_type=UUID)
     dry_matter: Optional[float]
     xp: Optional[float]
     energy: Optional[float]
     production_type: Optional[ProductionTypeT] = Field(sa_type=sa.Enum(ProductionTypeT))
-    general_id: UUID4 = Field(sa_type=UUID)
-    feed_ration_sows_id: Optional[UUID4] = Field(sa_type=UUID)
-    feed_ration_finishing_id: Optional[UUID4] = Field(sa_type=UUID)
+    crop_name: Optional[str]
+    price: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    concentrate: Optional[bool]
+    energy_mj: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    protein: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    year: Optional[int]
 
 
 class FeedRation(SQLModel, table=True):
@@ -706,8 +694,8 @@ class FeedRationSows(SQLModel, table=True):
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     crop_name: Optional[str]
     year: Optional[int]
-    general_id: Optional[UUID4] = Field(sa_type=UUID)
-    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+    general_id: UUID4 = Field(sa_type=UUID)
+    feeds_id: UUID4 = Field(sa_type=UUID)
     sows_produced: Optional[SowsProducedT] = Field(sa_type=sa.Enum(SowsProducedT))
 
 
@@ -724,5 +712,5 @@ class FeedRationFinishing(SQLModel, table=True):
     crop_name: Optional[str]
     finishing_produced: Optional[FinishingProducedT] = Field(sa_type=sa.Enum(FinishingProducedT))
     year: Optional[int]
-    general_id: Optional[UUID4] = Field(sa_type=UUID)
-    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+    general_id: UUID4 = Field(sa_type=UUID)
+    feeds_id: UUID4 = Field(sa_type=UUID)

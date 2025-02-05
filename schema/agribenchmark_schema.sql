@@ -835,18 +835,19 @@ CREATE TABLE "fertilizer" (
 );
 
 CREATE TYPE "production_type_t" AS ENUM ('selfproduced', 'boughtfeed');
-CREATE TYPE "cereal_type_t" AS ENUM ('corn', 'wheat', 'barley', 'set-aside', 'bought-in forage', 'minerals', 'concentrates', 'milk replacer', 'oils');
 
 CREATE TABLE "feeds" (
 	"id" uuid NOT NULL UNIQUE,
-	"cereal_type" cereal_type_t,
+	"general_id" uuid NOT NULL,
 	"dry_matter" float,
 	"xp" float,
 	"energy" float,
 	"production_type" production_type_t,
-	"general_id" uuid NOT NULL,
-	"feed_ration_sows_id" uuid,
-	"feed_ration_finishing_id" uuid,
+	"crop_name" varchar(50),
+	"price" decimal,
+	"concentrate" boolean,
+	"protein" decimal,
+	"year" int,
 	PRIMARY KEY("id")
 );
 
@@ -885,8 +886,8 @@ CREATE TABLE "feed_ration_sows" (
 	"total_amount_feed_used" decimal,
 	"crop_name" varchar(50),
 	"year" int,
-	"general_id" uuid,
-	"feeds_id" uuid,
+	"general_id" uuid NOT NULL,
+	"feeds_id" uuid NOT NULL,
 	"sows_produced" sows_produced_t,
 	PRIMARY KEY("feed_ration_sows_id")
 );
@@ -904,8 +905,8 @@ CREATE TABLE "feed_ration_finishing" (
 	"crop_name" varchar(50),
 	"finishing_produced" finishing_produced_t,
 	"year" int,
-	"general_id" uuid,
-	"feeds_id" uuid,
+	"general_id" uuid NOT NULL,
+	"feeds_id" uuid NOT NULL,
 	PRIMARY KEY("feed_ration_finishing_id")
 );
 
