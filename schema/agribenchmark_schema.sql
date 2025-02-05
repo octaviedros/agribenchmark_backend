@@ -834,7 +834,7 @@ CREATE TABLE "fertilizer" (
 	PRIMARY KEY("fertilizer_id")
 );
 
-
+CREATE TYPE "production_type_t" AS ENUM ('selfproduced', 'boughtfeed');
 CREATE TYPE "cereal_type_t" AS ENUM ('corn', 'wheat', 'barley', 'set-aside', 'bought-in forage', 'minerals', 'concentrates', 'milk replacer', 'oils');
 
 CREATE TABLE "feeds" (
@@ -843,6 +843,7 @@ CREATE TABLE "feeds" (
 	"dry_matter" float,
 	"xp" float,
 	"energy" float,
+	"production_type" production_type_t,
 	"general_id" uuid NOT NULL,
 	"feed_ration_sows_id" uuid,
 	"feed_ration_finishing_id" uuid,

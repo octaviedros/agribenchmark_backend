@@ -93,6 +93,14 @@ FertilizerNameT = Enum(
     ]
 )
 
+ProductionTypeT = Enum(
+    value='ProductionTypeT',
+    names=[
+        ('boughtfeed', 'boughtfeed'),
+        ('selfproduced', 'selfproduced')
+    ]
+)
+
 CerealTypeT = Enum(
     value='CerealTypeT',
     names=[
@@ -661,6 +669,7 @@ class Feeds(SQLModel, table=True):
     dry_matter: Optional[float]
     xp: Optional[float]
     energy: Optional[float]
+    production_type: Optional[ProductionTypeT] = Field(sa_type=sa.Enum(ProductionTypeT))
     general_id: UUID4 = Field(sa_type=UUID)
     feed_ration_sows_id: Optional[UUID4] = Field(sa_type=UUID)
     feed_ration_finishing_id: Optional[UUID4] = Field(sa_type=UUID)
