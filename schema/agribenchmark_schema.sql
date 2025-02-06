@@ -32,7 +32,7 @@ CREATE TABLE "general_farm" (
 
 CREATE TABLE "buildings" (
 	"id" uuid NOT NULL UNIQUE,
-	"buildings_id" uuid NOT NULL UNIQUE,
+	"buildings_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
 	"finishing_id" uuid,
@@ -52,7 +52,7 @@ CREATE TABLE "buildings" (
 	"replacement_value" decimal,
 	"enterprise_codes" int,
 	"year" int,
-	PRIMARY KEY("buildings_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN buildings.sum_annual_depreciation IS 'C';
 COMMENT ON COLUMN buildings.sum_book_values IS 'C';

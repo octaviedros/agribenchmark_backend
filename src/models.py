@@ -185,8 +185,8 @@ class Buildings(SQLModel, table=True):
 
     __tablename__ = 'buildings'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    buildings_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    buildings_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[UUID4] = Field(sa_type=UUID)
