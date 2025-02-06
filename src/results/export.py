@@ -20,6 +20,18 @@ def export_to_csv(general_id: str, background_tasks: BackgroundTasks, format: st
       f"SELECT * FROM {table} WHERE general_id = '{general_id}'", DATABASE_URL, engine="connectorx"
     ) for table in tables_general_id
   }
+  # Check if any table is empty
+  # If empty, create a table with the same schema and add a row with None values
+  for tbl in data:
+    if data[tbl].height == 0:
+      sch = data[tbl].schema
+      data[tbl] = pl.DataFrame(
+        [{
+          col: general_id if col == "general_id" else None
+          for col in sch.keys()
+        }],
+        schema=sch
+      )
   # add a table column to each table, melt, and vstack
   data = pl.concat(
     [
