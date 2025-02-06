@@ -459,7 +459,7 @@ class LandUse(SQLModel, table=True):
     __tablename__ = 'land_use'
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
-    landuse_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    land_use_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
     crop_name: Optional[str]
     acreage: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     net_yield: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -490,6 +490,7 @@ class VarCostCrop(SQLModel, table=True):
     crop_id: Optional[UUID4] = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
+    land_use_id: UUID4 = Field(sa_type=UUID)
 
 
 class FeedPricesDryMatter(SQLModel, table=True):
@@ -507,6 +508,7 @@ class FeedPricesDryMatter(SQLModel, table=True):
     concentrate: Optional[bool]
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
+    land_use_id: UUID4 = Field(sa_type=UUID)
 
 
 class SalesWeight(SQLModel, table=True):

@@ -519,7 +519,7 @@ COMMENT ON COLUMN acreage_prices.market_value IS 'C/ha';
 
 CREATE TABLE "land_use" (
 	"id" uuid NOT NULL UNIQUE,
-	"landuse_id" uuid NOT NULL UNIQUE,
+	"land_use_id" uuid NOT NULL UNIQUE,
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	-- ha
@@ -538,7 +538,7 @@ CREATE TABLE "land_use" (
 	"crop_id" uuid,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("landuse_id")
+	PRIMARY KEY("land_use_id")
 );
 COMMENT ON COLUMN land_use.crop_name IS 'Set aside, Corn, Wheat, Barley';
 COMMENT ON COLUMN land_use.acreage IS 'ha';
@@ -571,6 +571,7 @@ CREATE TABLE "var_cost_crop" (
 	"crop_id" uuid,
 	"general_id" uuid NOT NULL,
 	"year" int,
+	"land_use_id" uuid NOT NULL,
 	PRIMARY KEY("var_cost_crop_id")
 );
 COMMENT ON COLUMN var_cost_crop.crop_name IS 'Set aside, Corn, Wheat, Barley';
@@ -599,6 +600,7 @@ CREATE TABLE "feed_prices_dry_matter" (
 	"concentrate" boolean,
 	"general_id" uuid NOT NULL,
 	"year" int,
+	"land_use_id" uuid NOT NULL,
 	PRIMARY KEY("feed_prices_id")
 );
 COMMENT ON COLUMN feed_prices_dry_matter.feed_type IS 'Bought-in forage, Minerals, Concentrates, Milk replacer ,Oils, Finishing Feed I, Finishing Feed II, Finishing , Feed III, Finishing Feed IV, Gestation feed, Lactation feed, Special gilt feed, Special boar feed, Piglet feed I, Piglet feed II';
@@ -1035,4 +1037,10 @@ ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "feed_ration_finishing"
 ADD FOREIGN KEY("feeds_id") REFERENCES "feeds"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "feed_prices_dry_matter"
+ADD FOREIGN KEY("land_use_id") REFERENCES "land_use"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "var_cost_crop"
+ADD FOREIGN KEY("land_use_id") REFERENCES "land_use"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
