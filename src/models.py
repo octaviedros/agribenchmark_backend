@@ -206,8 +206,8 @@ class FeedSows(SQLModel, table=True):
 
     __tablename__ = 'feed_sows'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[UUID4] = Field(sa_type=UUID)
@@ -236,8 +236,8 @@ class Machines(SQLModel, table=True):
 
     __tablename__ = 'machines'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    machines_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    machines_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[UUID4] = Field(sa_type=UUID)
@@ -257,8 +257,8 @@ class Labour(SQLModel, table=True):
 
     __tablename__ = 'labour'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    labour_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    labour_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     sow_id: Optional[UUID4] = Field(sa_type=UUID)
     finishing_id: Optional[UUID4] = Field(sa_type=UUID)
@@ -275,8 +275,8 @@ class CashCrops(SQLModel, table=True):
 
     __tablename__ = 'cash_crops'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    crops_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    crops_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     feed_id: Optional[UUID4] = Field(sa_type=UUID)
     crop_name: Optional[str]
@@ -287,8 +287,8 @@ class PigFinishing(SQLModel, table=True):
 
     __tablename__ = 'pig_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    finishing_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    finishing_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     production_system: Optional[ProductionSystemT] = Field(sa_type=sa.Enum(ProductionSystemT))
     production_cycle: Optional[ProductionCycleT] = Field(sa_type=sa.Enum(ProductionCycleT))
@@ -303,8 +303,8 @@ class Sows(SQLModel, table=True):
 
     __tablename__ = 'sows'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    sows_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    sows_id: UUID4 = Field(sa_type=UUID)
     general_id: UUID4 = Field(sa_type=UUID)
     productionsystem: Optional[ProductionsystemT] = Field(sa_type=sa.Enum(ProductionsystemT))
     production_rhythm: Optional[ProductionRhythmT] = Field(sa_type=sa.Enum(ProductionRhythmT))
@@ -319,8 +319,8 @@ class VariableCostsSows(SQLModel, table=True):
 
     __tablename__ = 'variable_costs_sows'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    var_cost_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    var_cost_id: UUID4 = Field(sa_type=UUID)
     veterinary_medicine_supplies: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     artificial_insemination: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     pregnancy_check: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -343,8 +343,8 @@ class FixCosts(SQLModel, table=True):
 
     __tablename__ = 'fix_costs'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    fix_cost_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    fix_cost_id: UUID4 = Field(sa_type=UUID)
     feed_grinding_preparation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     insurance: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     cleaning: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -358,7 +358,7 @@ class SowsPerformance(SQLModel, table=True):
     __tablename__ = 'sows_performance'
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
-    sows_performance_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    sows_performance_id: Optional[UUID4] = Field(default=None, primary_key=True, sa_type=UUID)
     piglets_born_alive: Optional[int]
     cycles_per_sow_year: Optional[int]
     avg_gestation_period: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -384,8 +384,8 @@ class LiabilitiesInterestRates(SQLModel, table=True):
 
     __tablename__ = 'liabilities_interest_rates'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    liabilities_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    liabilities_id: UUID4 = Field(sa_type=UUID)
     long_term_loans: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
     medium_term_loans: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
     short_term_loans: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
@@ -404,8 +404,8 @@ class OverheadCosts(SQLModel, table=True):
 
     __tablename__ = 'overhead_costs'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    overhead_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    overhead_id: UUID4 = Field(sa_type=UUID)
     land_improvements: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     maintenance_machinery: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     maintenance_buildings: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -431,8 +431,8 @@ class DirectAidFromFarm(SQLModel, table=True):
 
     __tablename__ = 'direct_aid_from_farm'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    direct_aid_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    direct_aid_id: UUID4 = Field(sa_type=UUID)
     compensatory_allovance_disadvantage_area: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
@@ -442,8 +442,8 @@ class AcreagePrices(SQLModel, table=True):
 
     __tablename__ = 'acreage_prices'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    acreage_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    acreage_id: UUID4 = Field(sa_type=UUID)
     land_type: Optional[str]
     own_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     rented_land: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -458,8 +458,8 @@ class LandUse(SQLModel, table=True):
 
     __tablename__ = 'land_use'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    land_use_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    land_use_id: UUID4 = Field(sa_type=UUID)
     crop_name: Optional[str]
     acreage: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     net_yield: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -477,8 +477,8 @@ class VarCostCrop(SQLModel, table=True):
 
     __tablename__ = 'var_cost_crop'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    var_cost_crop_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    var_cost_crop_id: UUID4 = Field(sa_type=UUID)
     crop_name: Optional[str]
     seeds: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     fertilizer: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -497,8 +497,8 @@ class FeedPricesDryMatter(SQLModel, table=True):
 
     __tablename__ = 'feed_prices_dry_matter'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_prices_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_prices_id: UUID4 = Field(sa_type=UUID)
     feed_type: Optional[str]
     price_per_tonne: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     dry_matter_percent: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
@@ -515,8 +515,8 @@ class SalesWeight(SQLModel, table=True):
 
     __tablename__ = 'sales_weight'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    sales_weight_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    sales_weight_id: UUID4 = Field(sa_type=UUID)
     sales_weight_sows: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sales_weight_boars: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     sales_weight_weaning_piglet: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -529,8 +529,8 @@ class PricesSows(SQLModel, table=True):
 
     __tablename__ = 'prices_sows'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    prices_sows_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    prices_sows_id: UUID4 = Field(sa_type=UUID)
     buying_gilts: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     buying_boars: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     selling_sow: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -547,8 +547,8 @@ class PerformancePigFinishing(SQLModel, table=True):
 
     __tablename__ = 'performance_pig_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    performance_fin_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    performance_fin_id: UUID4 = Field(sa_type=UUID)
     stalling_in_weight: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     stalling_in_weight_em_ic_piglets: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     avg_duration_finishing_period: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -571,8 +571,8 @@ class PricesFinishing(SQLModel, table=True):
 
     __tablename__ = 'prices_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    prices_fin_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    prices_fin_id: UUID4 = Field(sa_type=UUID)
     buying_f_castpiglets: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     buying_piglets_for_finishing: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     selling_finishing_pigs_gi_ba: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -585,8 +585,8 @@ class VarCostFinishing(SQLModel, table=True):
 
     __tablename__ = 'var_cost_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    var_cost_fin_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    var_cost_fin_id: UUID4 = Field(sa_type=UUID)
     veterinary_medicine_supplies: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     disinfection: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     energy: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -618,8 +618,8 @@ class FeedingFinishing(SQLModel, table=True):
 
     __tablename__ = 'feeding_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_fin_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_fin_id: UUID4 = Field(sa_type=UUID)
     proportion_finishing_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
     proportion_finishing_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
     proportion_finishing_feed_3: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric(5,4))
@@ -635,8 +635,8 @@ class Fertilizer(SQLModel, table=True):
 
     __tablename__ = 'fertilizer'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    fertilizer_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    fertilizer_id: UUID4 = Field(sa_type=UUID)
     fertilizer_type: Optional[FertilizerTypeT] = Field(sa_type=sa.Enum(FertilizerTypeT))
     fertilizer_name: Optional[FertilizerNameT] = Field(sa_type=sa.Enum(FertilizerNameT))
     fertilizer_name_custom: Optional[str]
@@ -668,8 +668,8 @@ class FeedRation(SQLModel, table=True):
 
     __tablename__ = 'feed_ration'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_ration_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_ration_id: UUID4 = Field(sa_type=UUID)
     production: Optional[ProductionT] = Field(sa_type=sa.Enum(ProductionT))
     feed_sources: Optional[FeedSourcesT] = Field(sa_type=sa.Enum(FeedSourcesT))
     feed_type: Optional[FeedTypeT] = Field(sa_type=sa.Enum(FeedTypeT))
@@ -677,15 +677,15 @@ class FeedRation(SQLModel, table=True):
     total_amount_feed_used: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     general_id: UUID4 = Field(sa_type=UUID)
     year: Optional[int]
-    feeds_id: Optional[UUID4] = Field(sa_type=UUID)
+    feeds_id: UUID4 = Field(sa_type=UUID)
 
 
 class FeedRationSows(SQLModel, table=True):
 
     __tablename__ = 'feed_ration_sows'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_ration_sows_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_ration_sows_id: UUID4 = Field(sa_type=UUID)
     gestation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     lactation_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     special_gilt_feed: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
@@ -704,8 +704,8 @@ class FeedRationFinishing(SQLModel, table=True):
 
     __tablename__ = 'feed_ration_finishing'
 
-    id: UUID4 = Field(unique=True, sa_type=UUID)
-    feed_ration_finishing_id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    feed_ration_finishing_id: UUID4 = Field(sa_type=UUID)
     finishing_feed_1: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     finishing_feed_2: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     finishing_feed_3: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())

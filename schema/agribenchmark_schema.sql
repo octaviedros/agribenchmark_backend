@@ -68,7 +68,7 @@ CREATE TYPE "boars_special_feed_t" AS ENUM ('Special Boar feed', 'Mix of gestati
 
 CREATE TABLE "feed_sows" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_id" uuid NOT NULL UNIQUE,
+	"feed_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
 	"finishing_id" uuid,
@@ -107,7 +107,7 @@ CREATE TABLE "feed_sows" (
 	-- kg/year
 	"piglet_total_feed_yearly" decimal,
 	"year" int,
-	PRIMARY KEY("feed_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN feed_sows.sows_gestation_feed IS 'kg/animal and year';
 COMMENT ON COLUMN feed_sows.sows_lactation_feed IS 'kg/animal and year';
@@ -129,7 +129,7 @@ COMMENT ON COLUMN feed_sows.piglet_total_feed_yearly IS 'kg/year';
 
 CREATE TABLE "machines" (
 	"id" uuid NOT NULL UNIQUE,
-	"machines_id" uuid NOT NULL UNIQUE,
+	"machines_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
 	"finishing_id" uuid,
@@ -149,7 +149,7 @@ CREATE TABLE "machines" (
 	"replacement_value" decimal,
 	"enterprise_code" int,
 	"year" int,
-	PRIMARY KEY("machines_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN machines.sum_annual_depreciation IS 'C';
 COMMENT ON COLUMN machines.sum_book_values IS 'C';
@@ -163,7 +163,7 @@ CREATE TYPE "type_t" AS ENUM ('Manager', 'Executive Staff', 'Tractor Driver', 'P
 
 CREATE TABLE "labour" (
 	"id" uuid NOT NULL UNIQUE,
-	"labour_id" uuid NOT NULL UNIQUE,
+	"labour_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"sow_id" uuid,
 	"finishing_id" uuid,
@@ -177,7 +177,7 @@ CREATE TABLE "labour" (
 	"annual_wage_incl_sidecosts" decimal,
 	"enterprise_code" int,
 	"year" int,
-	PRIMARY KEY("labour_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN labour.labor_units IS 'Number(Anzahl)';
 COMMENT ON COLUMN labour.working_hours IS 'per person per year';
@@ -186,13 +186,13 @@ COMMENT ON COLUMN labour.annual_wage_incl_sidecosts IS 'per person';
 
 CREATE TABLE "cash_crops" (
 	"id" uuid NOT NULL UNIQUE,
-	"crops_id" uuid NOT NULL UNIQUE,
+	"crops_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"feed_id" uuid,
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	"year" int,
-	PRIMARY KEY("crops_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN cash_crops.crop_name IS 'Set aside, Corn, Wheat, Barley';
 
@@ -203,7 +203,7 @@ CREATE TYPE "production_cycle_t" AS ENUM ('all-in all-out by barn', 'all-in all-
 
 CREATE TABLE "pig_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"finishing_id" uuid NOT NULL UNIQUE,
+	"finishing_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"production_system" production_system_t,
 	"production_cycle" production_cycle_t,
@@ -215,7 +215,7 @@ CREATE TABLE "pig_finishing" (
 	-- %
 	"share_gi_pigs" decimal(5,4),
 	"year" int,
-	PRIMARY KEY("finishing_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN pig_finishing.animal_places IS 'No. heads';
 COMMENT ON COLUMN pig_finishing.no_sold_pigs_gi_ba IS 'No heads';
@@ -228,7 +228,7 @@ CREATE TYPE "production_rhythm_t" AS ENUM ('1-week rhythm', '2-week rhythm', '3-
 
 CREATE TABLE "sows" (
 	"id" uuid NOT NULL UNIQUE,
-	"sows_id" uuid NOT NULL UNIQUE,
+	"sows_id" uuid NOT NULL,
 	"general_id" uuid NOT NULL,
 	"productionsystem" productionsystem_t,
 	"production_rhythm" production_rhythm_t,
@@ -240,7 +240,7 @@ CREATE TABLE "sows" (
 	"no_boars" int,
 	"total_no_sows_gilts" int,
 	"year" int,
-	PRIMARY KEY("sows_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN sows.no_sows_mated_gilts IS 'No. heads';
 COMMENT ON COLUMN sows.no_unserved_gilts IS 'No. heads';
@@ -249,7 +249,7 @@ COMMENT ON COLUMN sows.no_boars IS 'No. heads';
 
 CREATE TABLE "variable_costs_sows" (
 	"id" uuid NOT NULL UNIQUE,
-	"var_cost_id" uuid NOT NULL UNIQUE,
+	"var_cost_id" uuid NOT NULL,
 	-- C/head
 	"veterinary_medicine_supplies" decimal,
 	-- C/head
@@ -280,7 +280,7 @@ CREATE TABLE "variable_costs_sows" (
 	"others" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("var_cost_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN variable_costs_sows.veterinary_medicine_supplies IS 'C/head';
 COMMENT ON COLUMN variable_costs_sows.artificial_insemination IS 'C/head';
@@ -300,7 +300,7 @@ COMMENT ON COLUMN variable_costs_sows.others IS 'C/head';
 
 CREATE TABLE "fix_costs" (
 	"id" uuid NOT NULL UNIQUE,
-	"fix_cost_id" uuid NOT NULL UNIQUE,
+	"fix_cost_id" uuid NOT NULL,
 	-- C/enterprise
 	"feed_grinding_preparation" decimal,
 	-- C/enterprise
@@ -311,7 +311,7 @@ CREATE TABLE "fix_costs" (
 	"others" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("fix_cost_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN fix_costs.feed_grinding_preparation IS 'C/enterprise';
 COMMENT ON COLUMN fix_costs.insurance IS 'C/enterprise';
@@ -321,7 +321,7 @@ COMMENT ON COLUMN fix_costs.others IS 'C/enterprise';
 
 CREATE TABLE "sows_performance" (
 	"id" uuid NOT NULL UNIQUE,
-	"sows_performance_id" uuid NOT NULL UNIQUE,
+	"sows_performance_id" uuid NOT NULL,
 	-- piglets/sow/year
 	"piglets_born_alive" int,
 	-- piglets/sow/year
@@ -381,7 +381,7 @@ COMMENT ON COLUMN sows_performance.reared_piglets IS 'piglets/sow/year';
 
 CREATE TABLE "liabilities_interest_rates" (
 	"id" uuid NOT NULL UNIQUE,
-	"liabilities_id" uuid NOT NULL UNIQUE,
+	"liabilities_id" uuid NOT NULL,
 	-- %
 	"long_term_loans" decimal(5,4),
 	-- %
@@ -404,7 +404,7 @@ CREATE TABLE "liabilities_interest_rates" (
 	"perc_debt_total_assets" decimal(5,4),
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("liabilities_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN liabilities_interest_rates.long_term_loans IS '%';
 COMMENT ON COLUMN liabilities_interest_rates.medium_term_loans IS '%';
@@ -420,7 +420,7 @@ COMMENT ON COLUMN liabilities_interest_rates.perc_debt_total_assets IS '%';
 
 CREATE TABLE "overhead_costs" (
 	"id" uuid NOT NULL UNIQUE,
-	"overhead_id" uuid NOT NULL UNIQUE,
+	"overhead_id" uuid NOT NULL,
 	-- Drainage etc.;C/year
 	"land_improvements" decimal,
 	-- If not known, calculate proxy, e.g. 3 % of the purchase price per annum; avoid double counting!;C/year
@@ -457,7 +457,7 @@ CREATE TABLE "overhead_costs" (
 	"others" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("overhead_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN overhead_costs.land_improvements IS 'Drainage etc.;C/year';
 COMMENT ON COLUMN overhead_costs.maintenance_machinery IS 'If not known, calculate proxy, e.g. 3 % of the purchase price per annum; avoid double counting!;C/year';
@@ -480,19 +480,19 @@ COMMENT ON COLUMN overhead_costs.others IS 'C/year';
 
 CREATE TABLE "direct_aid_from_farm" (
 	"id" uuid NOT NULL UNIQUE,
-	"direct_aid_id" uuid NOT NULL UNIQUE,
+	"direct_aid_id" uuid NOT NULL,
 	-- C/year
 	"compensatory_allovance_disadvantage_area" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("direct_aid_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN direct_aid_from_farm.compensatory_allovance_disadvantage_area IS 'C/year';
 
 
 CREATE TABLE "acreage_prices" (
 	"id" uuid NOT NULL UNIQUE,
-	"acreage_id" uuid NOT NULL UNIQUE,
+	"acreage_id" uuid NOT NULL,
 	-- Cropland	Grassland	Other incl. wood
 	"land_type" varchar(50),
 	-- ha
@@ -507,7 +507,7 @@ CREATE TABLE "acreage_prices" (
 	"market_value" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("acreage_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN acreage_prices.land_type IS 'Cropland	Grassland	Other incl. wood';
 COMMENT ON COLUMN acreage_prices.own_land IS 'ha';
@@ -519,7 +519,7 @@ COMMENT ON COLUMN acreage_prices.market_value IS 'C/ha';
 
 CREATE TABLE "land_use" (
 	"id" uuid NOT NULL UNIQUE,
-	"land_use_id" uuid NOT NULL UNIQUE,
+	"land_use_id" uuid NOT NULL,
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	-- ha
@@ -538,7 +538,7 @@ CREATE TABLE "land_use" (
 	"crop_id" uuid,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("land_use_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN land_use.crop_name IS 'Set aside, Corn, Wheat, Barley';
 COMMENT ON COLUMN land_use.acreage IS 'ha';
@@ -551,7 +551,7 @@ COMMENT ON COLUMN land_use.other_dir_paym IS 'C/ha';
 
 CREATE TABLE "var_cost_crop" (
 	"id" uuid NOT NULL UNIQUE,
-	"var_cost_crop_id" uuid NOT NULL UNIQUE,
+	"var_cost_crop_id" uuid NOT NULL,
 	-- Set aside, Corn, Wheat, Barley
 	"crop_name" varchar(50),
 	-- C/ha
@@ -572,7 +572,7 @@ CREATE TABLE "var_cost_crop" (
 	"general_id" uuid NOT NULL,
 	"year" int,
 	"land_use_id" uuid NOT NULL,
-	PRIMARY KEY("var_cost_crop_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN var_cost_crop.crop_name IS 'Set aside, Corn, Wheat, Barley';
 COMMENT ON COLUMN var_cost_crop.seeds IS 'C/ha';
@@ -586,7 +586,7 @@ COMMENT ON COLUMN var_cost_crop.other IS 'C/ha';
 
 CREATE TABLE "feed_prices_dry_matter" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_prices_id" uuid NOT NULL UNIQUE,
+	"feed_prices_id" uuid NOT NULL,
 	-- Bought-in forage, Minerals, Concentrates, Milk replacer ,Oils, Finishing Feed I, Finishing Feed II, Finishing , Feed III, Finishing Feed IV, Gestation feed, Lactation feed, Special gilt feed, Special boar feed, Piglet feed I, Piglet feed II
 	"feed_type" varchar(50),
 	-- C/t
@@ -601,7 +601,7 @@ CREATE TABLE "feed_prices_dry_matter" (
 	"general_id" uuid NOT NULL,
 	"year" int,
 	"land_use_id" uuid NOT NULL,
-	PRIMARY KEY("feed_prices_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN feed_prices_dry_matter.feed_type IS 'Bought-in forage, Minerals, Concentrates, Milk replacer ,Oils, Finishing Feed I, Finishing Feed II, Finishing , Feed III, Finishing Feed IV, Gestation feed, Lactation feed, Special gilt feed, Special boar feed, Piglet feed I, Piglet feed II';
 COMMENT ON COLUMN feed_prices_dry_matter.price_per_tonne IS 'C/t';
@@ -611,7 +611,7 @@ COMMENT ON COLUMN feed_prices_dry_matter.protein IS '%';
 
 CREATE TABLE "sales_weight" (
 	"id" uuid NOT NULL UNIQUE,
-	"sales_weight_id" uuid NOT NULL UNIQUE,
+	"sales_weight_id" uuid NOT NULL,
 	-- kg CW per head
 	"sales_weight_sows" decimal,
 	-- kg CW per head
@@ -622,7 +622,7 @@ CREATE TABLE "sales_weight" (
 	"sales_weight_rearing_piglet" decimal,
 	"general_id" uuid,
 	"year" int,
-	PRIMARY KEY("sales_weight_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN sales_weight.sales_weight_sows IS 'kg CW per head';
 COMMENT ON COLUMN sales_weight.sales_weight_boars IS 'kg CW per head';
@@ -632,7 +632,7 @@ COMMENT ON COLUMN sales_weight.sales_weight_rearing_piglet IS 'kg LW per head';
 
 CREATE TABLE "prices_sows" (
 	"id" uuid NOT NULL UNIQUE,
-	"prices_sows_id" uuid NOT NULL UNIQUE,
+	"prices_sows_id" uuid NOT NULL,
 	-- C/head
 	"buying_gilts" decimal,
 	-- C/head
@@ -650,7 +650,7 @@ CREATE TABLE "prices_sows" (
 	"no_weaned_pigs_sold" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("prices_sows_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN prices_sows.buying_gilts IS 'C/head';
 COMMENT ON COLUMN prices_sows.buying_boars IS 'C/head';
@@ -663,7 +663,7 @@ COMMENT ON COLUMN prices_sows.proportion_weaned_pigs_sold IS '% 0,0x';
 
 CREATE TABLE "performance_pig_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"performance_fin_id" uuid NOT NULL UNIQUE,
+	"performance_fin_id" uuid NOT NULL,
 	-- kg LW per head
 	"stalling_in_weight" decimal,
 	-- kg LW per head
@@ -693,7 +693,7 @@ CREATE TABLE "performance_pig_finishing" (
 	"avg_duration_finishing_period_em_ic" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("performance_fin_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN performance_pig_finishing.stalling_in_weight IS 'kg LW per head';
 COMMENT ON COLUMN performance_pig_finishing.stalling_in_weight_em_ic_piglets IS 'kg LW per head';
@@ -712,7 +712,7 @@ COMMENT ON COLUMN performance_pig_finishing.avg_duration_finishing_period_em_ic 
 
 CREATE TABLE "prices_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"prices_fin_id" uuid NOT NULL UNIQUE,
+	"prices_fin_id" uuid NOT NULL,
 	-- C/ kg LW
 	"buying_f_castpiglets" decimal,
 	-- C/ kg LW
@@ -723,7 +723,7 @@ CREATE TABLE "prices_finishing" (
 	"selling_finishing_pigs_em_ic" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("prices_fin_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN prices_finishing.buying_f_castpiglets IS 'C/ kg LW';
 COMMENT ON COLUMN prices_finishing.buying_piglets_for_finishing IS 'C/ kg LW';
@@ -733,7 +733,7 @@ COMMENT ON COLUMN prices_finishing.selling_finishing_pigs_em_ic IS 'C/ kg CW';
 
 CREATE TABLE "var_cost_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"var_cost_fin_id" uuid NOT NULL UNIQUE,
+	"var_cost_fin_id" uuid NOT NULL,
 	-- C/head
 	"veterinary_medicine_supplies" decimal,
 	-- C/head
@@ -756,7 +756,7 @@ CREATE TABLE "var_cost_finishing" (
 	"maintenance" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("var_cost_fin_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN var_cost_finishing.veterinary_medicine_supplies IS 'C/head';
 COMMENT ON COLUMN var_cost_finishing.disinfection IS 'C/head';
@@ -792,7 +792,7 @@ COMMENT ON COLUMN labor_alloc_sow_finishing.family_labor_finishing IS '0,0x';
 
 CREATE TABLE "feeding_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_fin_id" uuid NOT NULL UNIQUE,
+	"feed_fin_id" uuid NOT NULL,
 	-- %
 	"proportion_finishing_feed_1" decimal(5,4),
 	-- %
@@ -808,7 +808,7 @@ CREATE TABLE "feeding_finishing" (
 	"total_amount_feed" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("feed_fin_id")
+	PRIMARY KEY("id")
 );
 COMMENT ON COLUMN feeding_finishing.proportion_finishing_feed_1 IS '%';
 COMMENT ON COLUMN feeding_finishing.proportion_finishing_feed_2 IS '%';
@@ -824,7 +824,7 @@ CREATE TYPE "fertilizer_name_t" AS ENUM ('nitrogen', 'phosphorus', 'potash', 'ca
 
 CREATE TABLE "fertilizer" (
 	"id" uuid NOT NULL UNIQUE,
-	"fertilizer_id" uuid NOT NULL UNIQUE,
+	"fertilizer_id" uuid NOT NULL,
 	"fertilizer_type" fertilizer_type_t,
 	"fertilizer_name" fertilizer_name_t,
 	"fertilizer_name_custom" varchar(255),
@@ -833,7 +833,7 @@ CREATE TABLE "fertilizer" (
 	"n_content_per_unit" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	PRIMARY KEY("fertilizer_id")
+	PRIMARY KEY("id")
 );
 
 CREATE TYPE "production_type_t" AS ENUM ('selfproduced', 'boughtfeed');
@@ -862,7 +862,7 @@ CREATE TYPE "feed_type_t" AS ENUM ('Gestation feed', 'Lactation feed', 'Special 
 
 CREATE TABLE "feed_ration" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_ration_id" uuid NOT NULL UNIQUE,
+	"feed_ration_id" uuid NOT NULL,
 	"production" production_t,
 	"feed_sources" feed_sources_t,
 	"feed_type" feed_type_t,
@@ -870,15 +870,15 @@ CREATE TABLE "feed_ration" (
 	"total_amount_feed_used" decimal,
 	"general_id" uuid NOT NULL,
 	"year" int,
-	"feeds_id" uuid,
-	PRIMARY KEY("feed_ration_id")
+	"feeds_id" uuid NOT NULL,
+	PRIMARY KEY("id")
 );
 
 CREATE TYPE "sows_produced_t" AS ENUM ('selfproduced', 'boughtfeed');
 
 CREATE TABLE "feed_ration_sows" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_ration_sows_id" uuid NOT NULL UNIQUE,
+	"feed_ration_sows_id" uuid NOT NULL,
 	"gestation_feed" decimal,
 	"lactation_feed" decimal,
 	"special_gilt_feed" decimal,
@@ -891,7 +891,7 @@ CREATE TABLE "feed_ration_sows" (
 	"general_id" uuid NOT NULL,
 	"feeds_id" uuid NOT NULL,
 	"sows_produced" sows_produced_t,
-	PRIMARY KEY("feed_ration_sows_id")
+	PRIMARY KEY("id")
 );
 
 
@@ -899,7 +899,7 @@ CREATE TYPE "finishing_produced_t" AS ENUM ('selfproduced', 'boughtfeed');
 
 CREATE TABLE "feed_ration_finishing" (
 	"id" uuid NOT NULL UNIQUE,
-	"feed_ration_finishing_id" uuid NOT NULL UNIQUE,
+	"feed_ration_finishing_id" uuid NOT NULL,
 	"finishing_feed_1" decimal,
 	"finishing_feed_2" decimal,
 	"finishing_feed_3" decimal,
@@ -909,7 +909,7 @@ CREATE TABLE "feed_ration_finishing" (
 	"year" int,
 	"general_id" uuid NOT NULL,
 	"feeds_id" uuid NOT NULL,
-	PRIMARY KEY("feed_ration_finishing_id")
+	PRIMARY KEY("id")
 );
 
 ALTER TABLE "feed_sows"
@@ -925,7 +925,7 @@ ALTER TABLE "cash_crops"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "cash_crops"
-ADD FOREIGN KEY("feed_id") REFERENCES "feed_sows"("feed_id")
+ADD FOREIGN KEY("feed_id") REFERENCES "feeds"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "labour"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
@@ -934,28 +934,28 @@ ALTER TABLE "machines"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "machines"
-ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("finishing_id")
+ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "machines"
-ADD FOREIGN KEY("sow_id") REFERENCES "sows"("sows_id")
+ADD FOREIGN KEY("sow_id") REFERENCES "sows"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "labour"
-ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("finishing_id")
+ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "labour"
-ADD FOREIGN KEY("sow_id") REFERENCES "sows"("sows_id")
+ADD FOREIGN KEY("sow_id") REFERENCES "sows"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "buildings"
-ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("finishing_id")
+ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "buildings"
-ADD FOREIGN KEY("sow_id") REFERENCES "sows"("sows_id")
+ADD FOREIGN KEY("sow_id") REFERENCES "sows"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "feed_sows"
-ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("finishing_id")
+ADD FOREIGN KEY("finishing_id") REFERENCES "pig_finishing"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "feed_sows"
-ADD FOREIGN KEY("sow_id") REFERENCES "sows"("sows_id")
+ADD FOREIGN KEY("sow_id") REFERENCES "sows"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "buildings"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
@@ -964,10 +964,10 @@ ALTER TABLE "feeding_finishing"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "land_use"
-ADD FOREIGN KEY("crop_id") REFERENCES "cash_crops"("crops_id")
+ADD FOREIGN KEY("crop_id") REFERENCES "cash_crops"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "var_cost_crop"
-ADD FOREIGN KEY("crop_id") REFERENCES "cash_crops"("crops_id")
+ADD FOREIGN KEY("crop_id") REFERENCES "cash_crops"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "liabilities_interest_rates"
 ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
