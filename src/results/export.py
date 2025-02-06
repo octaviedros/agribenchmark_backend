@@ -33,6 +33,11 @@ def export_to_csv(general_id: str, background_tasks: BackgroundTasks, format: st
         schema=sch
       )
       
+  farm_id = data["general_farm"]["farm_id"][0]
+  year = data["general_farm"]["year"][0]
+  scenario = data["general_farm"]["scenario_name"][0]
+  filename = f"{farm_id}_{year}_{scenario}"
+  
   # add a table column to each table, melt, and vstack
   data = pl.concat(
     [
@@ -45,22 +50,23 @@ def export_to_csv(general_id: str, background_tasks: BackgroundTasks, format: st
     ], 
     how="vertical"
   )
+  
   if format == "json":
     # write to json
-    headers = {'Content-Disposition': 'attachment; filename="data.json"'}
+    headers = {'Content-Disposition': f"attachment; filename=\"{filename}.json\""}
     return Response(data.write_json(), headers=headers, media_type="application/json")
   elif format == "xlsx":
     # write to xlsx
     unique_name = str(uuid.uuid4())
     temp_file= unique_name+".xlsx"
-    headers = {'Content-Disposition': 'attachment; filename="data.xlsx"'}
+    headers = {'Content-Disposition': f"attachment; filename=\"{filename}.xlsx\""}
     data.write_excel(temp_file)
     file_response = FileResponse(temp_file,headers=headers, media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     background_tasks.add_task(remove_file,temp_file)
     return file_response
   else:
     # write to csv
-    headers = {'Content-Disposition': 'attachment; filename="data.csv"'}
+    headers = {'Content-Disposition': f"attachment; filename=\"{filename}.csv\""}
     return Response(data.write_csv(), headers=headers, media_type="text/csv")  
 
   
