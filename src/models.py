@@ -658,7 +658,6 @@ class Feeds(SQLModel, table=True):
     crop_name: Optional[str]
     price: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     concentrate: Optional[bool]
-    energy_mj: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     protein: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     year: Optional[int]
 
