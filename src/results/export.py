@@ -32,14 +32,16 @@ def export_to_csv(general_id: str, background_tasks: BackgroundTasks, format: st
         }],
         schema=sch
       )
+      
   # add a table column to each table, melt, and vstack
   data = pl.concat(
     [
       data[table]
+        .with_row_index("row_index")
         .with_columns(
           pl.lit(table).alias("table")
         )
-        .melt(id_vars=["general_id", "table"]) for table in tables_general_id
+        .melt(id_vars=["general_id", "table", "row_index"]) for table in tables_general_id
     ], 
     how="vertical"
   )
