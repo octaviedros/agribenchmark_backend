@@ -26,13 +26,13 @@ BoarsSpecialFeedT = Enum(
 TypeT = Enum(
     value='TypeT',
     names=[
+        ('Animal Caretaker', 'Animal Caretaker'),
         ('Casual Labour', 'Casual Labour'),
         ('Executive Staff', 'Executive Staff'),
         ('Family Labour', 'Family Labour'),
+        ('Machine Operator', 'Machine Operator'),
         ('Manager', 'Manager'),
-        ('Other', 'Other'),
-        ('Pigman', 'Pigman'),
-        ('Tractor Driver', 'Tractor Driver')
+        ('Other', 'Other')
     ]
 )
 
@@ -58,8 +58,8 @@ ProductionsystemT = Enum(
     names=[
         ('closed system', 'closed system'),
         ('pure piglet rearing', 'pure piglet rearing'),
-        ('system piglet sales  ( approx. 8kg)', 'system piglet sales  ( approx. 8kg)'),
-        ('weaner sales  ( approx. 25-30kg)', 'weaner sales  ( approx. 25-30kg)')
+        ('rearer piglet sales', 'rearer piglet sales'),
+        ('weaner piglet sales', 'weaner piglet sales')
     ]
 )
 
@@ -359,8 +359,8 @@ class SowsPerformance(SQLModel, table=True):
 
     id: UUID4 = Field(unique=True, sa_type=UUID)
     sows_performance_id: Optional[UUID4] = Field(default=None, primary_key=True, sa_type=UUID)
-    piglets_born_alive: Optional[int]
-    cycles_per_sow_year: Optional[int]
+    piglets_born_alive: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    cycles_per_sow_year: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     avg_gestation_period: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     duration_suckling_per_farrowing: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
     dry_sow_days: Optional[int]

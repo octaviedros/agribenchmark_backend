@@ -159,7 +159,7 @@ COMMENT ON COLUMN machines.salvage_value IS 'C/piece';
 COMMENT ON COLUMN machines.replacement_value IS 'C/piece';
 
 
-CREATE TYPE "type_t" AS ENUM ('Manager', 'Executive Staff', 'Tractor Driver', 'Pigman', 'Casual Labour', 'Family Labour', 'Other');
+CREATE TYPE "type_t" AS ENUM ('Manager', 'Executive Staff', 'Machine Operator', 'Animal Caretaker', 'Casual Labour', 'Family Labour', 'Other');
 
 CREATE TABLE "labour" (
 	"id" uuid NOT NULL UNIQUE,
@@ -222,7 +222,7 @@ COMMENT ON COLUMN pig_finishing.no_sold_pigs_gi_ba IS 'No heads';
 COMMENT ON COLUMN pig_finishing.share_gi_pigs IS '%';
 
 
-CREATE TYPE "productionsystem_t" AS ENUM ('system piglet sales (approx. 8kg)', 'weaner sales (approx. 25-30kg)', 'pure piglet rearing', 'closed system');
+CREATE TYPE "productionsystem_t" AS ENUM ('weaner piglet sales', 'rearer piglet sales', 'pure piglet rearing', 'closed system');
 
 CREATE TYPE "production_rhythm_t" AS ENUM ('1-week rhythm', '2-week rhythm', '3-week rhythm', '4-week rhythm', 'none or other rhythm');
 
@@ -323,9 +323,9 @@ CREATE TABLE "sows_performance" (
 	"id" uuid NOT NULL UNIQUE,
 	"sows_performance_id" uuid NOT NULL,
 	-- piglets/sow/year
-	"piglets_born_alive" int,
+	"piglets_born_alive" decimal,
 	-- piglets/sow/year
-	"cycles_per_sow_year" int,
+	"cycles_per_sow_year" decimal,
 	-- days
 	"avg_gestation_period" decimal,
 	-- days
