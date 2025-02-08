@@ -319,6 +319,22 @@ COMMENT ON COLUMN fix_costs.cleaning IS 'C/enterprise';
 COMMENT ON COLUMN fix_costs.others IS 'C/enterprise';
 
 
+CREATE TABLE "fix_costs_finishing" (
+	"id" uuid NOT NULL UNIQUE,
+	"fix_cost_fin_id" uuid NOT NULL,
+	-- C/enterprise
+	"feed_grinding_preparation" decimal,
+	-- C/enterprise
+	"insurance" decimal,
+	-- C/enterprise
+	"cleaning" decimal,
+	-- C/enterprise
+	"others" decimal,
+	"general_id" uuid NOT NULL,
+	"year" int,
+	PRIMARY KEY("id")
+);
+
 CREATE TABLE "sows_performance" (
 	"id" uuid NOT NULL UNIQUE,
 	"sows_performance_id" uuid NOT NULL,
@@ -1043,4 +1059,7 @@ ADD FOREIGN KEY("land_use_id") REFERENCES "land_use"("id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;
 ALTER TABLE "var_cost_crop"
 ADD FOREIGN KEY("land_use_id") REFERENCES "land_use"("id")
+ON UPDATE NO ACTION ON DELETE NO ACTION;
+ALTER TABLE "fix_costs_finishing"
+ADD FOREIGN KEY("general_id") REFERENCES "general_farm"("general_id")
 ON UPDATE NO ACTION ON DELETE NO ACTION;

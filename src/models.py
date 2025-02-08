@@ -353,6 +353,20 @@ class FixCosts(SQLModel, table=True):
     year: Optional[int]
 
 
+class FixCostsFinishing(SQLModel, table=True):
+
+    __tablename__ = 'fix_costs_finishing'
+
+    id: Optional[UUID4] = Field(default=None, primary_key=True, unique=True, sa_type=UUID)
+    fix_cost_fin_id: UUID4 = Field(sa_type=UUID)
+    feed_grinding_preparation: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    insurance: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    cleaning: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    others: Optional[decimal.Decimal] = Field(sa_type=sa.Numeric())
+    general_id: UUID4 = Field(sa_type=UUID)
+    year: Optional[int]
+
+
 class SowsPerformance(SQLModel, table=True):
 
     __tablename__ = 'sows_performance'
